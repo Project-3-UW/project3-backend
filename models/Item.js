@@ -33,7 +33,6 @@ Item.init({
   },
   date: {
     type: DataTypes.DATE,
-    unique: true,
   },
 }, {
   sequelize,

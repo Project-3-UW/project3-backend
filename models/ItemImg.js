@@ -15,4 +15,4 @@ ItemImg.init({
     timestamps: false
 })
 
-module.exports=ItemImg
+module.exports= ItemImg;
