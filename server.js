@@ -9,8 +9,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 
-const {User, Item, Category} = require('./models');
-const routes = require("./controller");
+const {User, UserImg, Item, ItemImg, Category} = require('./models');
+const routes = require("./controllers");
 
 app.use(express.static("public"));
 
@@ -35,6 +35,6 @@ app.use(routes)
 
 sequelize.sync({ force: false }).then(function() {
     app.listen(PORT, function() {
-    console.log('App listening on PORT ' + PORT);
+    console.log('App listening on PORT http://localhost:' + PORT);
     });
 });
