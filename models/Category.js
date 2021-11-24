@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Items extends Model {}
+class Category extends Model {}
 
-Items.init({
+Category.init({
   id:{
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -11,26 +11,13 @@ Items.init({
       primaryKey: true,
       unique: true,
   },
-  picture:{
-      type: DataTypes.STRING
-  },
-  description:{
+  name:{
       type: DataTypes.STRING,
-  },
-  date:{
-      type: DataTypes.DATE,
-      unique:true,
-  },
-  UserId:{
-      type: DataTypes.INTEGER,
-      allowNull:false
-  },
-  CategoryId: {
-      type: DataTypes.INTEGER,
       allowNull: false,
-  }
+  },
+  
 },{
     sequelize, 
 });
 
-module.exports = Items;
+module.exports = Category;
