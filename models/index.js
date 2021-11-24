@@ -10,11 +10,11 @@ Item.belongsTo(User,{
     through: "UserId",
 });
 
-Item.hasMany(Category,{
+Item.belongsToMany(Category,{
     through: "categoryId",
 });
 
-Category.hasMany(Item,{
+Category.belongsToMany(Item,{
     through:"Id"
 })
 

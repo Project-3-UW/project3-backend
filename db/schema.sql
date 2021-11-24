@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS beeby_db;
+CREATE DATABASE beeby_db;
