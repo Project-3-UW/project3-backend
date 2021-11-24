@@ -1,36 +1,42 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Items extends Model {}
+class Item extends Model { }
 
-Items.init({
-  id:{
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      allowNull: false,
-      primaryKey: true,
-      unique: true,
+Item.init({
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    allowNull: false,
+    primaryKey: true,
+    unique: true,
   },
-  picture:{
-      type: DataTypes.STRING
+  brand: {
+    type: DataTypes.STRING,
   },
-  description:{
-      type: DataTypes.STRING,
+  model: {
+    type: DataTypes.STRING,
   },
-  date:{
-      type: DataTypes.DATE,
-      unique:true,
+  ageRange: {
+    type: DataTypes.STRING,
   },
-  UserId:{
-      type: DataTypes.INTEGER,
-      allowNull:false
+  condition: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
-  CategoryId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-  }
-},{
-    sequelize, 
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  description: {
+    type: DataTypes.STRING,
+  },
+  date: {
+    type: DataTypes.DATE,
+    unique: true,
+  },
+}, {
+  sequelize,
 });
 
-module.exports = Items;
+module.exports = Item;
