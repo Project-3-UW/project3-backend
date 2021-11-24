@@ -1,7 +1,9 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
-const { User } = require('../../models')
+const jwt = require('jsonwebtoken');
+const tokenAuth = require('../../middleware/tokenAuth');
+const { User, UserImg } = require('../../models');
 
 // get all users
 router.get("/", (req,res)=>{
@@ -15,7 +17,7 @@ router.get("/", (req,res)=>{
 });
 });
 
-// get user by id
+// get user by id --- not with tokens
 router.get("/:id", (req,res)=>{
   User.findAll({
     where: {
@@ -30,6 +32,13 @@ router.get("/:id", (req,res)=>{
   res.status(500).json({ err });
 });
 });
+
+// get user profile by id using tokens 
+// router.get("/profile",tokenAuth, (req,res)=>{
+//   User.findByPk(req.user.id).then(foundUser=>{
+//     res.json(foundUser)
+//   })
+// })
 
 // adds new user
 router.post("/signup", (req, res) => {
@@ -54,6 +63,38 @@ router.post("/signup", (req, res) => {
 
   
 // login route with tokens
-  
+router.post("/login", (req, res) => {
+  User.findOne({
+    where: {
+      email: req.body.email
+    }
+  })
+    .then(foundUser => {
+        if(!foundUser){
+            res.status(401).send("incorrect email or password")
+        }
+        else if(bcrypt.compareSync(req.body.password,foundUser.password)){
+            const token = jwt.sign({
+              email:foundUser.email,
+              id:foundUser.id
+            },
+            process.env.JWT_SECRET
+            ,{
+              expiresIn:"2h"
+            })    
+            res.json({
+              token:token,
+              user:foundUser
+            });
+        }
+        else {
+            res.status(401).send("incorrect email or password")
+        }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ err });
+    });
+});
 
 module.exports = router;
