@@ -9,20 +9,13 @@ User.hasMany(Item,{
     onDelete: "CASCADE",
 });
 
-Item.belongsTo(User,{
-    // maybe don't need this because the sequelize with add fk auto
-    through: "UserId",
-});
+Item.belongsTo(User);
 
-Item.hasMany(Category,{
-    // maybe don't need this because the sequelize with add fk auto
-    through: "categoryId",
-});
+// Item.hasMany(Category,{
+   
+// });
 
-Category.hasMany(Item,{
-    // maybe don't need this because the sequelize with add fk auto
-    through:"Id"
-});
+Category.hasMany(Item);
 
 User.hasOne(UserImg,{
     onDelete: "CASCADE",

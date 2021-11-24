@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 
 
 const {User, Item, Category} = require('./models');
-const routes = require("./controller");
+const routes = require("./controllers");
 
 app.use(express.static("public"));
 
