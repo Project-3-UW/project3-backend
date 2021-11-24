@@ -15,4 +15,4 @@ UserImg.init({
     timestamps: false
 })
 
-module.exports=UserImg
+module.exports= UserImg;
