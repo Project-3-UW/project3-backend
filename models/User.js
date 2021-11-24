@@ -7,6 +7,7 @@ class User extends Model {}
 User.init({
     email:{
       type: DataTypes.STRING,
+      allowNull:false,
       unique:true,
       validate:{
           isEmail:true
@@ -18,16 +19,13 @@ User.init({
             len:[8]
         }
     },
-    image:{
-      type: DataTypes.STRING,
-      unique:true,
-      allowNull:true,
-    },
     firstName: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull:false,
     },
     lastName: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull:false,
     },
     bio: {
       type: DataTypes.STRING
@@ -37,7 +35,11 @@ User.init({
     },
     latitude: {
       type: DataTypes.FLOAT
+    },
+    kidDOB: {
+      type: DataTypes.DATE
     }
+
     
 },{
     hooks:{
