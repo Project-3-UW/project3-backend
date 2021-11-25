@@ -11,8 +11,6 @@ User.hasMany(Item,{
 
 Item.belongsTo(User);
 
-// Item.hasMany(Category);
-
 Category.hasMany(Item);
 
 User.hasOne(UserImg,{
@@ -21,11 +19,11 @@ User.hasOne(UserImg,{
 
 UserImg.belongsTo(User);
 
-Item.hasMany(ItemImg, {
-    onDelete: "CASCADE",
-});
+ItemImg.belongsTo(Item);
 
-ItemImg.belongsTo(Item)
+Item.hasMany(ItemImg,{
+    onDelete: "CASCADE"
+})
 
 module.exports={
     User,
