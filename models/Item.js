@@ -31,9 +31,6 @@ Item.init({
   description: {
     type: DataTypes.STRING,
   },
-  date: {
-    type: DataTypes.DATE,
-  },
   category: {
     type: DataTypes.STRING,
   },
