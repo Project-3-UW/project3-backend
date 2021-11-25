@@ -34,6 +34,9 @@ Item.init({
   date: {
     type: DataTypes.DATE,
   },
+  category: {
+    type: DataTypes.STRING,
+  },
 }, {
   sequelize,
 });
