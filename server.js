@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 
-const {User, UserImg, Item, ItemImg, Category} = require('./models');
+const {User, UserImg, Item, ItemImg } = require('./models');
 const routes = require("./controllers");
 
 app.use(express.static("public"));
