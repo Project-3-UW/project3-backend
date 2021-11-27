@@ -1,0 +1,29 @@
+[
+    {
+        "email": "test@1.com",
+        "password": "password",
+        "firstName": "Test",
+        "lastName": "One",
+        "bio": "this is the first test",
+        "kidDOB": "11/02/2020"
+        
+    },
+    {
+        "email": "test@1.com",
+        "password": "password",
+        "firstName": "Test",
+        "lastName": "One",
+        "bio": "this is the first test",
+        "kidDOB": "11/02/2020"
+        
+    },
+    {
+        "email": "test@1.com",
+        "password": "password",
+        "firstName": "Test",
+        "lastName": "One",
+        "bio": "this is the first test",
+        "kidDOB": "11/02/2020"
+        
+    }
+]
