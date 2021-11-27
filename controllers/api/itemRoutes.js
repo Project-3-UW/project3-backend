@@ -33,7 +33,7 @@ router.get("/:id", (req, res) => {
 
 // create an item
 router.post("/", tokenAuth, (req, res) => {
-  
+
   Item.create(req.body)
     .then(newItem => {
       res.status(200).json(newItem);
@@ -44,35 +44,69 @@ router.post("/", tokenAuth, (req, res) => {
     });
 });
 
-// delete an item by id
-router.delete("/:id", tokenAuth, (req, res) => {
-  if (!req.session.user) {
-    return res.status(403).json({ err: "please login first" });
-  }
-  Post.findByPk(req.params.id).then(foundPost => {
-    if (req.session.user.id !== foundPost.UserId) {
-      return res.status(403).json({ err: "not your comment!" });
-    }
-    Post.destroy({
+// update an item's status to pending/available/gifted
+router.put("/:status/:id", tokenAuth, (req, res) => {
+  if(["pending","available","gifted"].includes(req.params.status.toLowerCase())){
+      Item.update(
+    {
+      status: req.params.status
+    },
+    {
       where: {
         id: req.params.id
       }
     })
-      .then(delPost => {
-        if (delPost) {
-          res.json(delPost);
-        } else {
-          res.status(404).json({ err: "no such comment found!" });
-        }
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({ err });
-      });
-  }).catch(err => {
+    .then(newItem => {
+      console.log("item status updated")
+      res.status(200).json(newItem);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ err });
+    });
+  } else {
+    res.status(500).json({ err });
+  }
+});
+
+// update an item's info
+router.put("/:id", tokenAuth, (req, res) => {
+    Item.update(req.body,
+    {
+      where: {
+        id: req.params.id
+      }
+    })
+    .then(newItem => {
+      console.log("item updated")
+      res.status(200).json(newItem);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ err });
+    });
+});
+
+
+
+// delete an item by id
+router.delete("/:id", tokenAuth, (req, res) => {
+  Item.destroy({
+    where: {
+      id: req.params.id
+    }
+  }).then(delItem => {
+    if (delItem) {
+      console.log("item deleted")
+      res.json(delItem);
+    } else {
+      res.status(404).json({ err: "no such item found!" });
+    }
+  })
+  .catch(err => {
     console.log(err);
     res.status(500).json({ err });
-  });;
+  });
 });
 
 module.exports = router;
