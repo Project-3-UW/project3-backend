@@ -69,6 +69,25 @@ router.put("/:status/:id", tokenAuth, (req, res) => {
   }
 });
 
+// update an item's info
+router.put("/:id", tokenAuth, (req, res) => {
+    Item.update(req.body,
+    {
+      where: {
+        id: req.params.id
+      }
+    })
+    .then(newItem => {
+      console.log("item updated")
+      res.status(200).json(newItem);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ err });
+    });
+});
+
+
 
 // delete an item by id
 router.delete("/:id", tokenAuth, (req, res) => {
