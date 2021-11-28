@@ -86,4 +86,14 @@ router.post("/login", (req, res) => {
     });
 });
 
+router.post("/profile", tokenAuth, (req, res) => {
+ User.findByPk(req.user.id).then(foundUser=>{
+   res.json(foundUser);
+ })
+});
+
+router.get("/validateToken", tokenAuth, (req,res) => {
+  res.send("valid token")
+})
+
 module.exports = router;

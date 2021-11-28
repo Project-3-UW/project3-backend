@@ -1,11 +1,17 @@
 const express = require('express');
 const sequelize = require("./config/connection.js")
+const cors = require("cors")
 // const session = require("express-session");
 // const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 
 
 const app = express();
+//LOCAL
+app.use(cors())
+app.use(cors({
+    origin:[/* ADD DEPLOYED REACT URL */]
+}))
 const PORT = process.env.PORT || 3000;
 
 
