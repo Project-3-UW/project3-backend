@@ -31,10 +31,10 @@ User.init({
       type: DataTypes.STRING
     },
     longitude: {
-      type: DataTypes.FLOAT
+      type: DataTypes.FLOAT(13,10)
     },
     latitude: {
-      type: DataTypes.FLOAT
+      type: DataTypes.FLOAT(13,10)
     },
     kidDOB: {
       type: DataTypes.DATE
