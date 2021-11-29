@@ -12,7 +12,7 @@ app.use(cors())
 app.use(cors({
     origin:[/* ADD DEPLOYED REACT URL */]
 }))
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 
 const {User, UserImg, Item, ItemImg } = require('./models');

@@ -7,6 +7,10 @@ router.use("/users",userRoutes);
 const itemRoutes = require("./itemRoutes");
 router.use("/items",itemRoutes);
 
+const queryRoutes = require("./queryRoutes");
+router.use("/query",queryRoutes);
+
+
 // const categoryRoutes = require("./categoryRoutes");
 // router.use("/categories",categoryRoutes);
 

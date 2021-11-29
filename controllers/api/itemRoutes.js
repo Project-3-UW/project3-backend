@@ -1,10 +1,12 @@
 const router = require('express').Router();
 const { Item } = require("../../models");
 const tokenAuth = require('../../middleware/tokenAuth');
+
 const jwt = require('jsonwebtoken');
 
 // get all items
 router.get("/", (req, res) => {
+  console.log(req.user)
   Item.findAll()
     .then(itemData => {
       res.json(itemData);
