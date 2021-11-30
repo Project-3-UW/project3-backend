@@ -2,7 +2,7 @@ const router = require('express').Router();
 const nodemailer = require('nodemailer');
 const path = require('path');
 const { getMaxListeners } = require('process');
-const { Item, Category, User } = require("../../models");
+const { Item, User } = require("../../models");
 
 
 
