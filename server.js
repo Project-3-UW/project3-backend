@@ -2,16 +2,17 @@ const express = require('express');
 const sequelize = require("./config/connection.js")
 // const session = require("express-session");
 // const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const cors = require("cors");
 
 
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 
 const {User, UserImg, Item, ItemImg } = require('./models');
 const routes = require("./controllers");
-
+app.use(cors())
 app.use(express.static("public"));
 
 // app.use(session({
