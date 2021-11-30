@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Item } = require("../../models");
+const { Item, User } = require("../../models");
 const tokenAuth = require('../../middleware/tokenAuth');
 
 const jwt = require('jsonwebtoken');
@@ -110,5 +110,45 @@ router.delete("/:id", tokenAuth, (req, res) => {
     res.status(500).json({ err });
   });
 });
+
+// send interest in item 
+// router.put("/:id", (req, res) => {
+//   Item.update({
+//    include:[User]
+//   })
+//   // }).then(thisUser => {
+//   //     res.json(thisUser);
+//   }).then(thisUser => {
+//       let transporter = nodemailer.createTransport({
+//           service: 'gmail',
+//           auth: {
+//             user: 'appbebop60@gmail.com',
+//             pass: 'bebopmusic'
+//           }
+//       });
+//       let mailOptions = {
+//           from: 'beebyconnection@gmail.com',
+//           to: `${req.body.email}`,
+//           subject: `Someone is interested in your item, ${req.body.username}!`,
+//           text: `There is someone interested in your item ${req.body.title}. You can contact them at the following email address ${req.body.contact}.`
+//       };
+//       transporter.sendMail(mailOptions, function (err, data) {
+//           if (err) {
+//               console.log(err)
+//           } else {
+//               console.log('email sent')
+//           }
+//       })
+  
+//     })
+//       .catch(err => {
+//         console.log(err);
+    
+//         res.status(500).json({ err });
+//         })
+      
+    
+   
+
 
 module.exports = router;
