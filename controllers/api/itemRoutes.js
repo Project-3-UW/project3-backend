@@ -7,7 +7,9 @@ const jwt = require('jsonwebtoken');
 // get all items
 router.get("/", (req, res) => {
   console.log(req.user)
-  Item.findAll()
+  Item.findAll({
+    include: [User]
+  })
     .then(itemData => {
       res.json(itemData);
     })
@@ -19,7 +21,12 @@ router.get("/", (req, res) => {
 
 // get an item by id
 router.get("/:id", (req, res) => {
-  Item.findByPk(req.params.id)
+  Item.findAll({
+    where: {
+      id:req.params.id},
+      include: [User]
+    })
+  
     .then(singleItem => {
       if (singleItem) {
         res.json(singleItem);
@@ -111,41 +118,6 @@ router.delete("/:id", tokenAuth, (req, res) => {
   });
 });
 
-// send interest in item 
-// router.put("/:id", (req, res) => {
-//   Item.update({
-//    include:[User]
-//   })
-//   // }).then(thisUser => {
-//   //     res.json(thisUser);
-//   }).then(thisUser => {
-//       let transporter = nodemailer.createTransport({
-//           service: 'gmail',
-//           auth: {
-//             user: 'appbebop60@gmail.com',
-//             pass: 'bebopmusic'
-//           }
-//       });
-//       let mailOptions = {
-//           from: 'beebyconnection@gmail.com',
-//           to: `${req.body.email}`,
-//           subject: `Someone is interested in your item, ${req.body.username}!`,
-//           text: `There is someone interested in your item ${req.body.title}. You can contact them at the following email address ${req.body.contact}.`
-//       };
-//       transporter.sendMail(mailOptions, function (err, data) {
-//           if (err) {
-//               console.log(err)
-//           } else {
-//               console.log('email sent')
-//           }
-//       })
-  
-//     })
-//       .catch(err => {
-//         console.log(err);
-    
-//         res.status(500).json({ err });
-//         })
       
     
    

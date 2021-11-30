@@ -29,6 +29,24 @@ router.get("/:id", (req,res)=>{
 });
 });
 
+// update an item's info
+router.put("/:id", tokenAuth, (req, res) => {
+  User.update(req.body,
+  {
+    where: {
+      id: req.params.id
+    }
+  })
+  .then(newItem => {
+    console.log("item updated")
+    res.status(200).json(newItem);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({ err });
+  });
+});
+
 // adds new user
 router.post("/signup", (req, res) => {
     User.create({

@@ -9,7 +9,8 @@ const itemData = [
         model: "n/a",
         ageRange: "0-6m",
         description: "10 cute baby girl one-piece",
-        UserId:3
+        UserId:3,
+        favorited_by: 1
     },
     {
         title:"highchair",
