@@ -29,6 +29,24 @@ router.get("/:id", (req,res)=>{
 });
 });
 
+// update an item's info
+router.put("/:id", tokenAuth, (req, res) => {
+  User.update(req.body,
+  {
+    where: {
+      id: req.params.id
+    }
+  })
+  .then(newItem => {
+    console.log("item updated")
+    res.status(200).json(newItem);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({ err });
+  });
+});
+
 // adds new user
 router.post("/signup", (req, res) => {
     User.create({
@@ -40,6 +58,7 @@ router.post("/signup", (req, res) => {
       bio: req.body.bio,
       longitude: req.body.longitude,
       latitude: req.body.latitude,
+      
     })
       .then(newUser => {
         res.json(newUser);
@@ -70,7 +89,9 @@ router.post("/login", (req, res) => {
             process.env.JWT_SECRET
             ,{
               expiresIn:"2h"
-            })    
+            })
+            console.log("login success")
+            console.log(token)
             res.json({
               token:token,
               user:foundUser

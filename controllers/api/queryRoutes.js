@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { Item, User } = require("../../models");
 const tokenQuery = require('../../middleware/tokenAuth');
 const calculateDistance = require('../../utils/distanceUtil');
+const tokenAuth = require('../../middleware/tokenAuth');
 // default setting 5 miles as the distance
 const nearbyDistance = 5
 
@@ -59,5 +60,9 @@ router.get("/nearby", tokenQuery, async (req, res) => {
         res.status(500).json({ err });
       });
   });
+
+  router.get("/validateToken", tokenAuth, (req,res) => {
+    res.send("valid token")
+  })
 
   module.exports = router;
