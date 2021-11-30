@@ -89,7 +89,9 @@ router.post("/login", (req, res) => {
             process.env.JWT_SECRET
             ,{
               expiresIn:"2h"
-            })    
+            })
+            console.log("login success")
+            console.log(token)
             res.json({
               token:token,
               user:foundUser
