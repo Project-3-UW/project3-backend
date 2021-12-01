@@ -40,6 +40,7 @@ router.post("/signup", (req, res) => {
       bio: req.body.bio,
       longitude: req.body.longitude,
       latitude: req.body.latitude,
+      kidDOB: req.body.kidDOB
     })
       .then(newUser => {
         res.json(newUser);

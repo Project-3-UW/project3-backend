@@ -62,7 +62,9 @@ router.get("/nearby", tokenQuery, async (req, res) => {
   });
 
   router.get("/validateToken", tokenAuth, (req,res) => {
-    res.send("valid token")
+    User.findByPk(req.user.id).then(foundUser=>{
+        res.json(foundUser)
+      })
   })
 
   module.exports = router;
