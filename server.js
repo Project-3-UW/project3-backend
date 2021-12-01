@@ -7,11 +7,14 @@ var cors = require('cors')
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors())
-
+// app.use(cors())
+//DEPLOYED
+app.use(cors({
+    origin:["https://beeby.herokuapp.com"]
+}))
 const {User, UserImg, Item, ItemImg } = require('./models');
 const routes = require("./controllers");
-app.use(cors())
+
 app.use(express.static("public"));
 
 
