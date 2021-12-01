@@ -10,9 +10,9 @@ router.use("/items",itemRoutes);
 const queryRoutes = require("./queryRoutes");
 router.use("/query",queryRoutes);
 
+const emailRoutes = require("./emailRoutes");
+router.use("/email",emailRoutes);
 
-// const categoryRoutes = require("./categoryRoutes");
-// router.use("/categories",categoryRoutes);
 
 
 module.exports = router;
