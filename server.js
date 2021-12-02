@@ -15,10 +15,15 @@ const imagekit = new ImageKit({
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors())
-
+// app.use(cors())
+//DEPLOYED
+app.use(cors({
+    origin:["https://beeby.herokuapp.com"]
+}))
 const {User, UserImg, Item, ItemImg } = require('./models');
 const routes = require("./controllers");
+
+app.use(express.static("public"));
 
 app.use(express.static("public"));
 
