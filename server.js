@@ -1,8 +1,15 @@
 const express = require('express');
 const sequelize = require("./config/connection.js")
-var cors = require('cors')
-// const ImageKit = require('imagekit');
+const cors = require('cors')
+const ImageKit = require('imagekit');
+const dotenv =require('dotenv');
 
+
+const imagekit = new ImageKit({
+  urlEndpoint: process.env.URL_ENDPOINT,
+  publicKey: process.env.PUBLIC_KEY,
+  privateKey: process.env.PRIVATE_KEY
+});
 
 
 const app = express();
@@ -12,7 +19,7 @@ app.use(cors())
 
 const {User, UserImg, Item, ItemImg } = require('./models');
 const routes = require("./controllers");
-app.use(cors())
+
 app.use(express.static("public"));
 
 app.use(function(req, res, next) {

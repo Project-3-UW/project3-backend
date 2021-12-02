@@ -13,7 +13,10 @@ router.use("/query",queryRoutes);
 const emailRoutes = require("./emailRoutes");
 router.use("/email",emailRoutes);
 
-const imgkitRoutes = require("./imgAuth");
-router.use("/auth",imgkitRoutes);
+const imageIRoutes = require("./imgIRoutes");
+router.use("/itemimg",imageIRoutes)
+
+const imageURoutes = require("./imgURoutes");
+router.use("/userimg",imageURoutes)
 
 module.exports = router;
