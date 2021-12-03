@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Item, User } = require("../../models");
+const { Item, User, ItemImg } = require("../../models");
 const tokenQuery = require('../../middleware/tokenAuth');
 const calculateDistance = require('../../utils/distanceUtil');
 const tokenAuth = require('../../middleware/tokenAuth');
@@ -54,6 +54,41 @@ router.get("/nearby", tokenQuery, async (req, res) => {
                 nearby: true
             });
         }
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({ err });
+      });
+  });
+
+
+  router.get("/itemByUser/:userid", async (req, res) => {
+
+    Item.findAll(
+        {
+            include: [User,ItemImg],
+            where: {
+                UserId: req.params.userid
+            }
+        }
+    )
+      .then(itemData => {
+
+        let activeList=[], pendingList=[], giftedList=[];
+        itemData.forEach((item)=>{
+            if(item.status === "gifted") {
+                giftedList.push(item)
+            } else if(item.status === "pending") {
+                pendingList.push(item)
+            } else {
+                activeList.push(item)
+            }
+        })
+        res.json({
+            activeList:activeList,
+            pendingList:pendingList,
+            giftedList:giftedList,
+        })
       })
       .catch(err => {
         console.log(err);

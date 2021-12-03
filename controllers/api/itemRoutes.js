@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Item, User } = require("../../models");
+const { Item, User, ItemImg, UserImg } = require("../../models");
 const tokenAuth = require('../../middleware/tokenAuth');
 
 const jwt = require('jsonwebtoken');
@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 router.get("/", (req, res) => {
   console.log(req.user)
   Item.findAll({
-    include: [User]
+    include: [User, ItemImg]
   })
     .then(itemData => {
       res.json(itemData);
@@ -21,10 +21,14 @@ router.get("/", (req, res) => {
 
 // get an item by id
 router.get("/:id", (req, res) => {
-  Item.findAll({
-    where: {
-      id:req.params.id},
-      include: [User]
+  Item.findByPk(req.params.id,{
+      include: [
+        ItemImg,
+        {model:User,
+        include: [{
+          model: UserImg
+        }]
+      }]
     })
   
     .then(singleItem => {

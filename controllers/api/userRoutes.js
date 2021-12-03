@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const tokenAuth = require('../../middleware/tokenAuth');
-const { User, UserImg } = require('../../models');
+const { User, Item, ItemImg } = require('../../models');
 
 // get all users
 router.get("/", (req,res)=>{
@@ -19,15 +19,42 @@ router.get("/", (req,res)=>{
 
 // get user by id --- not with tokens
 router.get("/:id", tokenAuth, (req,res)=>{
-  User.findByPk(req.params.id)
+  User.findByPk(req.params.id, {
+    include: [{model: Item,
+      include: [{
+        model: ItemImg
+      }]
+    }]
+  })
 .then(findUser => {
-  res.json(findUser);
+  
+  let activeList=[], pendingList=[], giftedList=[];
+
+  findUser.Items.forEach((item)=>{
+    if(item.status === "gifted") {
+        giftedList.push(item)
+    } else if(item.status === "pending") {
+        pendingList.push(item)
+    } else {
+        activeList.push(item)
+    }
+})
+
+  let userData = findUser;
+  userData.Items = activeList;
+  res.json({
+    findUser:findUser,
+    activeList:activeList,
+    pendingList:pendingList,
+    giftedList:giftedList,
+});
 })
 .catch(err => {
   console.log(err);
   res.status(500).json({ err });
 });
 });
+
 
 // update an item's info
 router.put("/:id", tokenAuth, (req, res) => {
