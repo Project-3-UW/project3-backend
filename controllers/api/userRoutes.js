@@ -18,7 +18,7 @@ router.get("/", (req,res)=>{
 });
 
 // get user by id --- not with tokens
-router.get("/:id", (req,res)=>{
+router.get("/:id", tokenAuth, (req,res)=>{
   User.findByPk(req.params.id)
 .then(findUser => {
   res.json(findUser);
