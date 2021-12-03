@@ -3,33 +3,33 @@ const nodemailer = require('nodemailer');
 const path = require('path');
 const { getMaxListeners } = require('process');
 const { Item, User } = require("../../models");
+const tokenAuth = require('../../middleware/tokenAuth')
 
-
-
-router.get('/:id', (req, res) => {
+router.get('/:id', tokenAuth, (req,res) => {
+    let contact = req.user.email;
     Item.findAll({
         where: {
-          id:req.params.id},
-          include: [User]
-    }).then(newEmail => {
-        const title = newEmail[0].title;
-        const user = newEmail[0].User.firstName;
-        const email = newEmail[0].User.email;
-        console.log(req.body.contacter);
-        res.json(newEmail)
-
-        let transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: 'beebycontact@gmail.com',
-                pass: 'Project3'
-            }
+            id:req.params.id},
+            include: [User]
+        }).then(newEmail => {
+            const title = newEmail[0].title;
+            const user = newEmail[0].User.firstName;
+            const email = newEmail[0].User.email;
+            console.log(req.body.contacter);
+            res.json(newEmail)
+            
+            let transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'beebycontact@gmail.com',
+                    pass: 'Project3'
+                }
         });
         let mailOptions = {
             from: 'beebycontact@gmail.com',
-            to: email,
+            to: 'deannaboiani@gmail.com',
             subject: `Someone is interested in your item, ${user}!`,
-            text: `There is someone interested in your item: ${title}. Please contact them at the following email address ${req.body.contacter}.`
+            text: `There is someone interested in your item: ${title}. Please contact them at the following email address ${contact}.`
         };
         transporter.sendMail(mailOptions, function (err, data) {
             if (err) {
@@ -37,9 +37,9 @@ router.get('/:id', (req, res) => {
             } else {
                 console.log('email sent')
             }
-        }).catch(err => {
-            console.log(err);
-            res.status(500).json({ message: "an error occured", err: err })
+        // }).catch(err => {
+        //     console.log(err);
+        //     res.status(500).json({ message: "an error occured", err: err })
         })
 
     });
