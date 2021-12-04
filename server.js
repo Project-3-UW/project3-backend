@@ -1,7 +1,15 @@
 const express = require('express');
 const sequelize = require("./config/connection.js")
-var cors = require('cors')
+const cors = require('cors')
+const ImageKit = require('imagekit');
+const dotenv =require('dotenv');
 
+
+const imagekit = new ImageKit({
+  urlEndpoint: process.env.URL_ENDPOINT,
+  publicKey: process.env.PUBLIC_KEY,
+  privateKey: process.env.PRIVATE_KEY
+});
 
 
 const app = express();
@@ -17,7 +25,17 @@ const routes = require("./controllers");
 
 app.use(express.static("public"));
 
+app.get('/auth', function (req, res) {
+  var result = imagekit.getAuthenticationParameters();
+  res.send(result);
+});
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", 
+      "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
