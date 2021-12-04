@@ -23,7 +23,7 @@ const tokenAuth = function(req,res,next){
 const tokenQuery = function(req,res,next){
     // use Axios to pass token to header
     if(req.headers.authorization){
-        console.log(req.headers);
+        console.log("-----headers----" + req.headers);
         const token =req.headers.authorization.split(" ").pop();
         console.log(token)
         jwt.verify(token, process.env.JWT_SECRET,function(err,data){
@@ -34,7 +34,7 @@ const tokenQuery = function(req,res,next){
             } else {
                 console.log("success");
                 req.user = data;
-                console.log(data)
+                console.log(data.email)
                 req.guest = false;
                 next()
             }
