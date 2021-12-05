@@ -101,7 +101,8 @@ router.post("/signup", (req, res) => {
 router.post("/login", (req, res) => {
   User.findOne({
     where: {
-      email: req.body.email
+      email: req.body.email,
+    
     }
   })
     .then(foundUser => {
@@ -138,6 +139,21 @@ router.post("/profile", tokenAuth, (req, res) => {
  User.findByPk(req.user.id).then(foundUser=>{
    res.json(foundUser);
  })
+});
+
+router.get("/:id/location", tokenAuth, (req,res)=>{
+  User.findByPk(req.params.id,{
+      attributes: { exclude: ['id', 'createdAt','updatedAt','firstName','lastName','email','password','image','bio','kidDOB'] }})
+.then(findUser => {
+  res.json(findUser),
+  // res.json(findUser.longitude)
+  console.log(findUser.latitude, findUser.latitude)
+  // console.log(findUser.longitude);
+})
+.catch(err => {
+  console.log(err);
+  res.status(500).json({ err });
+});
 });
 
 router.get("/validateToken", tokenAuth, (req,res) => {

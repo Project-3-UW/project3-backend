@@ -7,6 +7,7 @@ const tokenAuth = require('../../middleware/tokenAuth');
 
 
 router.get('/:id', tokenAuth, (req, res) => {    
+    console.log("------contact--" + res.body.contact);
     Item.findAll({
         where: {
             id: req.params.id
@@ -16,7 +17,6 @@ router.get('/:id', tokenAuth, (req, res) => {
         const title = newEmail[0].title;
         const user = newEmail[0].User.firstName;
         const email = newEmail[0].User.email;
-        console.log("------contact--" + req.body.contact);
         res.json(newEmail)
 
         let transporter = nodemailer.createTransport({

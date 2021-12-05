@@ -45,10 +45,43 @@ router.get("/:id", (req, res) => {
 });
 
 // create an item
-router.post("/", tokenAuth, (req, res) => {
+// router.post("/", tokenAuth, (req, res) => {
 
-  Item.create(req.body)
+//   Item.create(req.body)
+//     .then(newItem => {
+//       res.status(200).json(newItem);
+//     })
+//     .catch(err => {
+//       console.log(err);
+//       res.status(500).json({ err });
+//     });
+// });
+router.post("/", tokenAuth, (req, res) => {
+  console.log(req.body)
+  let object = {
+    brand: req.body.brand,
+    model: req.body.model,
+    ageRange: req.body.ageRange,
+    condition: req.body.condition,
+    title: req.body.title,
+    description: req.body.description,
+    category:req.body.category,
+    status: req.body.status,
+    userID: req.user.id,
+    // imgItem: req.body.ItemImgs.url
+  }
+  Item.create(object)
     .then(newItem => {
+      console.log(newItem.id)
+      if (req.body.imgItem.length) {
+        const itemImgArr = req.body.imgItem.map((img) => {
+          return {
+            url: img.id,
+            ItemId: newItem.id
+          };
+        });
+        return ItemImg.bulkCreate(itemImgArr);
+      }
       res.status(200).json(newItem);
     })
     .catch(err => {
