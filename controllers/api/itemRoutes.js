@@ -46,9 +46,31 @@ router.get("/:id", (req, res) => {
 
 // create an item
 router.post("/", tokenAuth, (req, res) => {
+  let object = {
+    brand: req.body.brand,
+    model: req.body.model,
+    ageRange: req.body.ageRange,
+    condition: req.body.condition,
+    title: req.body.title,
+    description: req.body.description,
+    category:req.body.category,
+    status: req.body.status,
+    UserId: req.user.id
+  }
+  
 
-  Item.create(req.body)
+  Item.create(object)
     .then(newItem => {
+      console.log(newItem.id)
+      if (req.body.imgItem.length) {
+        const itemImgArr = req.body.imgItem.map((img) => {
+          return {
+            url: img,
+            ItemId: newItem.id
+          };
+        });
+        return ItemImg.bulkCreate(itemImgArr);
+      }
       res.status(200).json(newItem);
     })
     .catch(err => {

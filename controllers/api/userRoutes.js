@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const tokenAuth = require('../../middleware/tokenAuth');
-const { User, Item, ItemImg } = require('../../models');
+const { User, Item, ItemImg, UserImg } = require('../../models');
 
 // get all users
 router.get("/", (req,res)=>{
@@ -20,7 +20,7 @@ router.get("/", (req,res)=>{
 // get user by id --- not with tokens
 router.get("/:id", tokenAuth, (req,res)=>{
   User.findByPk(req.params.id, {
-    include: [{model: Item,
+    include: [UserImg, {model: Item,
       include: [{
         model: ItemImg
       }]
@@ -132,6 +132,21 @@ router.post("/login", (req, res) => {
       console.log(err);
       res.status(500).json({ err });
     });
+});
+
+router.get("/:id/location", tokenAuth, (req,res)=>{
+  User.findByPk(req.params.id,{
+      attributes: { exclude: ['id', 'createdAt','updatedAt','firstName','lastName','email','password','image','bio','kidDOB'] }})
+.then(findUser => {
+  res.json(findUser),
+  // res.json(findUser.longitude)
+  console.log(findUser.latitude, findUser.latitude)
+  // console.log(findUser.longitude);
+})
+.catch(err => {
+  console.log(err);
+  res.status(500).json({ err });
+});
 });
 
 router.post("/profile", tokenAuth, (req, res) => {
