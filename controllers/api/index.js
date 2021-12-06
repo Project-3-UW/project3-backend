@@ -10,8 +10,8 @@ router.use("/items",itemRoutes);
 const queryRoutes = require("./queryRoutes");
 router.use("/query",queryRoutes);
 
-const emailRoutes = require("./emailRoutes");
-router.use("/email",emailRoutes);
+// const emailRoutes = require("./emailRoutes");
+// router.use("/email",emailRoutes);
 
 const imageIRoutes = require("./imgIRoutes");
 router.use("/itemimg",imageIRoutes)
