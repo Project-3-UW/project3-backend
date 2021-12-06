@@ -129,7 +129,7 @@ router.post("/login", (req, res) => {
             });
         }
         else {
-            res.status(401).send("incorrect email or password")
+            res.status(401).send("fail to login")
         }
     })
     .catch(err => {

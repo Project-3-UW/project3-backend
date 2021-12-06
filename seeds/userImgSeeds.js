@@ -41,6 +41,47 @@ const imageData = [
         UserId:10,
         url:"https://images.unsplash.com/photo-1534818113099-dbe2b2e800ae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8bW9tJTIwd2l0aCUyMGtpZHN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
     },
+    {
+        UserId:11,
+        url:"https://media.istockphoto.com/photos/african-lovely-woman-hugging-shy-daughter-picture-id1270066556?b=1&k=20&m=1270066556&s=170667a&w=0&h=kReFBUIbFOe32589qwU8AuZKvAMtbSORU4Y74cNDgRM="
+    },
+    {
+        UserId:12,
+        url:"https://media.istockphoto.com/photos/ethnic-mother-and-little-girl-having-fun-with-digital-tablet-picture-id1270068008?b=1&k=20&m=1270068008&s=170667a&w=0&h=loLrqoFF1CCw8l30j7ugass4g9b7A97CQIVPvt5FB70="
+    },
+    {
+        UserId:13,
+        url:"https://media.istockphoto.com/photos/sweet-day-wiht-my-son-picture-id1268570897?b=1&k=20&m=1268570897&s=170667a&w=0&h=UQQ83lzcdPrsVo6gIXLlJNa1CB7CmjNl6xpBO1hxt1E="
+    },
+    {
+        UserId:14,
+        url:"https://media.istockphoto.com/photos/mother-carrying-son-and-daughter-as-they-play-in-park-picture-id660353478?b=1&k=20&m=660353478&s=170667a&w=0&h=mzu-dkDwrgYf-V9deoCFXLDy78q_t9oY7FngNoL15yM="
+    },
+    {
+        UserId:15,
+        url:"https://media.istockphoto.com/photos/mother-and-daughter-doing-yoga-picture-id1221256351?b=1&k=20&m=1221256351&s=170667a&w=0&h=C74FAix5m4n3zlr8bHWJUIkzdo4ZHK8DqYWj07hXcpI="
+    },
+    {
+        UserId:16,
+        url:"https://media.istockphoto.com/photos/mother-with-son-working-on-digital-tablet-at-home-picture-id1144539387?b=1&k=20&m=1144539387&s=170667a&w=0&h=qHTmtIr0ov1HqP3e5E9cAGmAyTlQaTNdnkJdoQAyQXk="
+    },
+    {
+        UserId:17,
+        url:"https://media.istockphoto.com/photos/muslim-boy-hugging-his-mother-picture-id513384360?b=1&k=20&m=513384360&s=170667a&w=0&h=gQE7TJoYuczNGvXUiZ6bAuwaOM33-q5Z72slV9R7pf4="
+    },
+    {
+        UserId:18,
+        url:"https://media.istockphoto.com/photos/mother-and-son-looking-out-of-window-picture-id1130186653?b=1&k=20&m=1130186653&s=170667a&w=0&h=297Y_3J48ywHsK0YevnIGF1XRYwiStNyekA1ed-umAE="
+    },
+    {
+        UserId:19,
+        url:"https://media.istockphoto.com/photos/touching-foreheads-picture-id1084242842?b=1&k=20&m=1084242842&s=170667a&w=0&h=c_HJibF9GQYu1_vNIfBEqfVO27pcLhvK3bVhbzD1jwI="
+    },
+    {
+        UserId:20,
+        url:"https://media.istockphoto.com/photos/woman-with-newborn-baby-picture-id1253920275?b=1&k=20&m=1253920275&s=170667a&w=0&h=KlVxovqLYRizwtlWhYAM6u5OzfC3a2GEo8mnKFp1SKw="
+    },
+
 ]
 
 const seedUserImage = () => UserImg.bulkCreate(imageData)
