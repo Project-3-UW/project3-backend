@@ -4,6 +4,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const tokenAuth = require('../../middleware/tokenAuth');
 const { User, Item, ItemImg, UserImg } = require('../../models');
+const nodemailer = require('nodemailer')
 
 // get all users
 router.get("/", (req,res)=>{
@@ -92,8 +93,37 @@ router.post("/signup", (req, res) => {
           url: req.body.userImg,
           UserId: newUser.id
         })
-        res.json(newUser);
+        // res.json(newUser);
       })
+      .then(newUser => {
+        let transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'beebycontact@gmail.com',
+                pass: 'Project3'
+            }
+        });
+        let mailOptions = {
+            from: 'beebycontact@gmail.com',
+            to: req.body.email,
+            subject: `Welcome to BeeBy, ${req.body.firstName}!`,
+          text: `Welcome to the BeeBy community! 
+          
+Here you will be able to find new/used clothes and items for your child, or post your old ones to give away. You can filter by location, condition, type and age so that you can easily find what you are looking for. If you click the "I want it!!" button, an email will be generated to the person who uploaded the item, just press send! If you can't find what you are looking for, checkout the coupons page to shop local. The resources page will have any advice or hotlines you need. 
+          
+          Happy swapping! 
+          
+          -The BeeBy Team`
+        };
+        transporter.sendMail(mailOptions, function (err, data) {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log('email sent')
+            }
+      })
+    res.json(newUser);
+  })
       .catch(err => {
         console.log(err);
         res.status(500).json({ err });
