@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 
 // get all items
 router.get("/", (req, res) => {
-  console.log(req.user)
   Item.findAll({
     include: [User, ItemImg]
   })
@@ -61,7 +60,6 @@ router.post("/", tokenAuth, (req, res) => {
 
   Item.create(object)
     .then(newItem => {
-      console.log(newItem.id)
       if (req.body.imgItem.length) {
         const itemImgArr = req.body.imgItem.map((img) => {
           return {
@@ -69,7 +67,7 @@ router.post("/", tokenAuth, (req, res) => {
             ItemId: newItem.id
           };
         });
-        return ItemImg.bulkCreate(itemImgArr);
+        ItemImg.bulkCreate(itemImgArr);
       }
       res.status(200).json(newItem);
     })
@@ -121,8 +119,6 @@ router.put("/:id", tokenAuth, (req, res) => {
       res.status(500).json({ err });
     });
 });
-
-
 
 // delete an item by id
 router.delete("/:id", tokenAuth, (req, res) => {

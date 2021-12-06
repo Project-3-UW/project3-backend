@@ -88,6 +88,10 @@ router.post("/signup", (req, res) => {
       kidDOB: req.body.kidDOB
     })
       .then(newUser => {
+        UserImg.create({
+          url: req.body.userImg,
+          UserId: newUser.id
+        })
         res.json(newUser);
       })
       .catch(err => {
